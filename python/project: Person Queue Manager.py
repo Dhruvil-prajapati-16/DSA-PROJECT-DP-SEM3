@@ -27,7 +27,9 @@ def peek(Que):
     if emptyq():
         return "underflow"
     else:
-        return Que[0].name
+        front_person = Que[0].name if Que else None
+        last_person = Que[-1].name if Que else None
+        return front_person, last_person
 
 def search_person(Que, name):
     if emptyq():
@@ -104,11 +106,12 @@ while True:
             input("Press any key to continue......")
 
     elif ch == 3:
-        item = peek(Q)
-        if item == "underflow":
+        front_person, last_person = peek(Q)
+        if front_person == "underflow":
             print("Queue is empty")
         else:
-            print("Front person is: %s" % item)
+            print("Front person is: %s" % front_person)
+            print("Last person in the queue is: %s" % last_person)
             input("Press any key to continue......")
         
     elif ch == 4:
