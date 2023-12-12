@@ -4,8 +4,6 @@ import os
 FILENAME = os.path.abspath(os.path.join(os.path.dirname(__file__), "persons.json"))
 
 Q = []
-f = None
-r = None
 
 class Person:
     def __init__(self, name, age, gender):
@@ -17,28 +15,19 @@ def emptyq():
     return not bool(Q)
 
 def insertQ(Que, item):
-    global f, r
     Que.append(item)
-    if len(Que) == 1:
-        f = r = 0
-    else:
-        r = len(Que) - 1
 
 def deleteQ(Que):
-    global f, r
     if emptyq():
         return "underflow"
     else:
-        i = Que.pop(0)
-        if len(Que) == 0:
-            f = r = None
-        return i
+        return Que.pop(0)
 
 def peek(Que):
     if emptyq():
         return "underflow"
     else:
-        return Que[f]
+        return Que[0].name
 
 def search_person(Que, name):
     if emptyq():
@@ -50,15 +39,12 @@ def search_person(Que, name):
         return "Person not found"
 
 def display(Que):
-    if len(Que) == 0:
+    if emptyq():
         print("Queue is empty!")
-    elif len(Que) == 1:
-        print(Que[0], "<-- this is front and rear ")
     else:
-        print(Que[f], "<-- now this is front")
-        for x in range(1, r):
-            print(Que[x])
-        print(Que[r], "this is rear")
+        print("Queue:")
+        for person in Que:
+            display_person(person)
 
 def display_person(person):
     print(f"Name: {person.name}, Age: {person.age}, Gender: {person.gender}")
@@ -108,7 +94,7 @@ while True:
     print("Enter 6 for display")
     print("Enter 7 for exit")
 
-    ch = int(input("enter a choice 1 to 7: "))
+    ch = int(input("Enter a choice (1 to 7): "))
 
     if ch == 1:
         name = input("Enter the name: ")
@@ -116,7 +102,7 @@ while True:
         gender = input("Enter the gender: ")
         new_person = Person(name, age, gender)
         insertQ(Q, new_person)
-        input("press any key to continue......")
+        input("Press any key to continue......")
 
     elif ch == 2:
         item = deleteQ(Q)
@@ -124,19 +110,19 @@ while True:
             print("Queue is empty")
         else:
             print("%s has been deleted!" % item.name)
-            input("press any key to continue......")
+            input("Press any key to continue......")
 
     elif ch == 3:
         item = peek(Q)
         if item == "underflow":
             print("Queue is empty")
         else:
-            print("Front person is: %s" % item.name)
-            input("press any key to continue......")
+            print("Front person is: %s" % item)
+            input("Press any key to continue......")
         
     elif ch == 4:
         list_persons(Q)
-        input("press any key to continue......")
+        input("Press any key to continue......")
 
     elif ch == 5:
         search_name = input("Enter the name to search: ")
@@ -146,14 +132,14 @@ while True:
             display_person(found_person)
         else:
             print(found_person)
-        input("press any key to continue......")
+        input("Press any key to continue......")
 
     elif ch == 6:
         display(Q)
-        input("press any key to continue......")
+        input("Press any key to continue......")
 
     elif ch == 7:
         break
 
     else:
-        print("plz enter a right choice >_<")
+        print("Please enter a valid choice.")
