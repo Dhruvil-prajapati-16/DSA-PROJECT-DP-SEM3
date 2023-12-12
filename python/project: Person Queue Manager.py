@@ -38,14 +38,6 @@ def search_person(Que, name):
                 return person
         return "Person not found"
 
-def display(Que):
-    if emptyq():
-        print("Queue is empty!")
-    else:
-        print("Queue:")
-        for person in Que:
-            display_person(person)
-
 def display_person(person):
     print(f"Name: {person.name}, Age: {person.age}, Gender: {person.gender}")
 
@@ -91,8 +83,7 @@ while True:
     print("Enter 3 for see queue (peek)")
     print("Enter 4 for list of person in queue")
     print("Enter 5 for search person")
-    print("Enter 6 for display")
-    print("Enter 7 for exit")
+    print("Enter 6 for exit")
 
     ch = int(input("Enter a choice (1 to 7): "))
 
@@ -133,12 +124,8 @@ while True:
         else:
             print(found_person)
         input("Press any key to continue......")
-
+    
     elif ch == 6:
-        display(Q)
-        input("Press any key to continue......")
-
-    elif ch == 7:
         break
 
     else:
